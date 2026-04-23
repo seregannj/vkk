@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VK Video (Legacy)</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 8px; background: #eee; color: #222; }
+  .wrap { max-width: 600px; margin: 0 auto; background: #fff; padding: 10px; border: 1px solid #aaa; }
+  input { width: 50%; padding: 4px; font-size: 14px; }
+  button { padding: 4px 8px; font-size: 14px; }
+  .video-wrap { position: relative; padding-top: 56.25%; margin-top: 10px; background: #000; }
+  .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .hint { font-size: 12px; color: #555; margin-top: 10px; line-height: 1.4; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h3>VK Video</h3>
+    <input type="text" id="url" placeholder="https://vk.com/video-123456_789012">
+    <button onclick="loadVideo()">Загрузить</button>
+    <div class="video-wrap">
+      <iframe id="player" src="" allowfullscreen></iframe>
+    </div>
+    <div class="hint">
+      ⚠️ Android 4.4 не поддерживает современные протоколы безопасности и видео-форматы ВК.<br>
+      Если экран чёрный или ошибка "Не удалось загрузить", установите браузер <b>Firefox</b> или <b>Firefox ESR</b> из архива.
+    </div>
+  </div>
+<script>
+  function loadVideo() {
+    var raw = document.getElementById('url').value;
+    var match = raw.match(/video(-?\d+)_(\d+)/);
+    if (!match) {
+      alert('Вставьте ссылку вида: https://vk.com/video-123456_789012');
+      return;
+    }
+    var oid = match[1];
+    var vid = match[2];
+    document.getElementById('player').src = 'https://vk.com/video_ext.php?oid=' + oid + '&id=' + vid + '&hd=2';
+  }
+</script>
+</body>
+</html>
